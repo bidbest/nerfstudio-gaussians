@@ -16,13 +16,13 @@ LABEL org.opencontainers.image.base.name="docker.io/library/nvidia/cuda:${CUDA_V
 # Variables used at build time.
 ## CUDA architectures, required by Colmap and tiny-cuda-nn.
 ## NOTE: All commonly used GPU architectures are included and supported here. To speedup the image build process remove all architectures but the one of your explicit GPU. Find details here: https://developer.nvidia.com/cuda-gpus (8.6 translates to 86 in the line below) or in the docs.
-ARG CUDA_ARCHITECTURES=90;89;86;80;75;70;61;52;37
+ARG CUDA_ARCHITECTURES=86
 
 # Set environment variables.
 ## Set non-interactive to prevent asking for user inputs blocking image creation.
 ENV DEBIAN_FRONTEND=noninteractive
 ## Set timezone as it is required by some packages.
-ENV TZ=Europe/Berlin
+ENV TZ=Asia/Tokyo
 ## CUDA Home, required to find CUDA in some packages.
 ENV CUDA_HOME="/usr/local/cuda"
 
@@ -168,8 +168,12 @@ RUN cd nerfstudio && \
     python3.10 -m pip install --no-cache-dir -e . && \
     cd ..
 
+RUN cd nerfstudio/thirdparty/dn-splatter && \
+    pip install -e . && \
+    cd -
+
 # Change working directory
-WORKDIR /workspace
+WORKDIR /home/user/nerfstudio//thirdparty/dn-splatter
 
 # Install nerfstudio cli auto completion
 RUN ns-install-cli --mode install

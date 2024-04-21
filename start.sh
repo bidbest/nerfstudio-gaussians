@@ -1,0 +1,1 @@
+docker run --gpus all -u $(id -u) -v /home/francesco/datasets_gs:/workspace/ -v /home/francesco/.cache/:/home/user/.cache/ -v /home/francesco/dn-splatter/:/dn-splatter  -p 7007:7007 --rm -it --shm-size=12gb nerfstudio-86

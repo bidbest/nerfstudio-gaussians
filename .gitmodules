@@ -1,0 +1,3 @@
+[submodule "thirdparty/dn-splatter"]
+	path = thirdparty/dn-splatter
+	url = git@github.com:maturk/dn-splatter.git
